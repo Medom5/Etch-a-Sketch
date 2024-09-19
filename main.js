@@ -1,5 +1,5 @@
 const contH = 600;
-const contW = 610;
+const contW = 620;
 let container = document.getElementsByClassName("container")[0];
 container.style.cssText = `width : ${contW}px; height : ${contH}px;`;
 
@@ -13,11 +13,7 @@ function generateGrid(n) {
       div.classList.add("grid-div");
       div.style.height = contH / n + "px";
       div.style.width = contW / n + "px";
-      div.addEventListener(
-        "mouseenter",
-        () => (div.style.backgroundColor = "black")
-      );
-      div.addEventListener("click", () => (div.style.backgroundColor = ""));
+      div.addEventListener("mouseenter", () => blackMode);
       container.append(div);
     }
   }
@@ -31,23 +27,36 @@ button.addEventListener("click", () => {
 
 let random = document.getElementById("random");
 let divs = document.getElementsByClassName("grid-div");
+
 random.addEventListener("click", () => {
   Array.from(divs).forEach((element) => {
-    element.removeEventListener(
-      "mouseenter",
-      () => (div.style.backgroundColor = "black")
-    );
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    element.addEventListener(
-      "mouseenter",
-      () => (element.style.backgroundColor = `rgb(${r}, ${g}, ${b})`)
-    );
+      element.removeEventListener("mouseenter", () => blackMode);
+      element.addEventListener("mouseenter", randomColors)
   });
 });
 
 let clear = document.getElementById("clear");
+
 clear.addEventListener("click", () =>
   Array.from(divs).forEach((e) => (e.style.backgroundColor = ""))
 );
+
+let black = document.getElementById("black");
+
+black.addEventListener("click", () => {
+  Array.from(divs).forEach((e) => {
+      e.removeEventListener("mouseenter", randomColors);
+      e.addEventListener("mouseenter", blackMode);
+  });
+});
+
+function blackMode(e) {
+  e.target.style.backgroundColor = "black";
+}
+
+function randomColors(e) {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
