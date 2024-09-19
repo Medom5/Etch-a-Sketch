@@ -31,7 +31,7 @@ body {
     align-items: center;
 }
 
-#size, #random, #clear, #black {
+#size, #random, #clear, #black, #eraser, #clickEraser {
     font-size: 22px;
     font-weight: bold;
     padding: 4px 8px;

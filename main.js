@@ -3,7 +3,7 @@ const contW = 620;
 let container = document.getElementsByClassName("container")[0];
 container.style.cssText = `width : ${contW}px; height : ${contH}px;`;
 
-generateGrid(34);
+generateGrid(16);
 
 function generateGrid(n) {
   container.innerHTML = "";
@@ -30,8 +30,9 @@ let divs = document.getElementsByClassName("grid-div");
 
 random.addEventListener("click", () => {
   Array.from(divs).forEach((element) => {
-      element.removeEventListener("mouseenter", () => blackMode);
-      element.addEventListener("mouseenter", randomColors)
+    element.removeEventListener("mouseenter", transparent);
+    element.removeEventListener("mouseenter", () => blackMode);
+    element.addEventListener("mouseenter", randomColors);
   });
 });
 
@@ -45,8 +46,9 @@ let black = document.getElementById("black");
 
 black.addEventListener("click", () => {
   Array.from(divs).forEach((e) => {
-      e.removeEventListener("mouseenter", randomColors);
-      e.addEventListener("mouseenter", blackMode);
+    e.removeEventListener("mouseenter", transparent);
+    e.removeEventListener("mouseenter", randomColors);
+    e.addEventListener("mouseenter", blackMode);
   });
 });
 
@@ -59,4 +61,44 @@ function randomColors(e) {
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
   e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
+function transparent(e) {
+  e.target.style.backgroundColor = "";
+}
+
+let eraser = document.getElementById("eraser");
+eraser.addEventListener("click", () =>
+  Array.from(divs).forEach((e) => {
+    e.removeEventListener("mouseenter", blackMode);
+    e.removeEventListener("mouseenter", randomColors);
+    e.addEventListener("mouseenter", transparent);
+  })
+);
+
+let clickEraser = document.getElementById("clickEraser");
+let on = false;
+clickEraser.addEventListener("click", () => {
+  if (!on) {
+    clickEraser.textContent = "Click Eraser On";
+  } else {
+    clickEraser.textContent = "Click Eraser Off";
+  }
+  Array.from(divs).forEach((e) => {
+    e.removeEventListener("mouseenter", transparent);
+    e.removeEventListener("mouseenter", blackMode);
+    e.removeEventListener("mouseenter", randomColors);
+    if (!on) {
+      clickEraser.textContent = "Click Eraser On";
+      e.addEventListener("click", eraserClick);
+    } else {
+      clickEraser.textContent = "Click Eraser Off";
+      e.removeEventListener("click", eraserClick);
+    }
+  });
+  on = on === true ? false : true;
+});
+
+function eraserClick(e) {
+  e.target.style.backgroundColor = "";
 }
