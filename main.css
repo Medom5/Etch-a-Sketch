@@ -15,6 +15,7 @@ body {
   flex-wrap: wrap;
   box-sizing: content-box;
   border: solid black 1.2px;
+  
 }
 
 .grid-div {
@@ -26,9 +27,11 @@ body {
     margin: 4em 25em 0 25em;
 }
 
-#size {
-    font-size: 25px;
+#size, #random {
+    font-size: 22px;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 4px 8px;
     height: 60px;
+    border: 3px solid teal;
+    border-radius: 10px;
 }
