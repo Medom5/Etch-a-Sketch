@@ -10,8 +10,6 @@ body {
 .container {
   margin: 100px 25em;
   display: flex;
-  width: 500px;
-  height: 500px;
   background-color: white;
   flex-wrap: wrap;
   box-sizing: content-box;
