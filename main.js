@@ -30,8 +30,8 @@ button.addEventListener("click", () => {
 });
 
 let random = document.getElementById("random");
+let divs = document.getElementsByClassName("grid-div");
 random.addEventListener("click", () => {
-  let divs = document.getElementsByClassName("grid-div");
   Array.from(divs).forEach((element) => {
     element.removeEventListener(
       "mouseenter",
@@ -46,3 +46,8 @@ random.addEventListener("click", () => {
     );
   });
 });
+
+let clear = document.getElementById("clear");
+clear.addEventListener("click", () =>
+  Array.from(divs).forEach((e) => (e.style.backgroundColor = ""))
+);
